@@ -1,14 +1,19 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../controllers/userController");
-const authMiddleware = require("../middlewares/authMiddleware");
+const express = require('express');
+const userController = require('../controllers/userController');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-// Rotas para CRUD de usuários
-router.get("/:id", userController.getUserById); // Obter usuário por ID
-router.post("/", userController.createUser); // Cadastro de usuário
-router.put("/:id", userController.updateUser); // Atualizar usuário
-router.delete("/:id", userController.deleteUser); // Deletar usuário
-router.put("/:id", authMiddleware.authenticate, userController.updateUser);
-router.delete("/:id", authMiddleware.authenticate, userController.deleteUser);
+const router = express.Router();
+
+// Obter usuário por ID
+router.get('/v1/user/:id', userController.getUserById);
+
+// Cadastro de usuário
+router.post('/v1/user', userController.createUser);
+
+// Atualizar usuário
+router.put('/v1/user/:id', authMiddleware, userController.updateUser);
+
+// Deletar usuário
+router.delete('/v1/user/:id', authMiddleware, userController.deleteUser);
 
 module.exports = router;

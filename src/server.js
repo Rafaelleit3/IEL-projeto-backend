@@ -1,16 +1,20 @@
 const express = require('express');
-const app = express();
-const userRoutes = require('./routes/userRoutes'); // Altere para o caminho correto das suas rotas
+const userRoutes = require('./routes/userRoutes');
+const connection = require('./config/connection');
 
-// Configuração do middleware
-app.use(express.json());
+const server = express();
+server.use(express.json());
 
-// Rotas
-app.use('/v1/user', userRoutes);
+server.use(userRoutes);
 
-// Porta do servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
+server.listen(3000, async () => {
+  try {
+    await connection.authenticate();
+    console.log('Database connected');
+  } catch (error) {
+    console.error('Database connection failed', error);
+  }
+  console.log('Server is running on port 3000');
 });
+
 

@@ -1,81 +1,102 @@
-const { User } = require("../models");
+const bcrypt = require('bcryptjs');
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
-// Requisito 01 - Obter informações do usuário pelo ID
-exports.getUserById = async (req, res) => {
+// Requisito 01 - Obter informações do usuário
+const getUserById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const user = await User.findByPk(id, {
-      attributes: ["id", "firstname", "surname", "email"],
-    });
-
+    const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
-
-    return res.status(200).json(user);
+    res.status(200).json({
+      id: user.id,
+      firstname: user.firstname,
+      surname: user.surname,
+      email: user.email,
+    });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
 // Requisito 02 - Cadastro de usuário
-exports.createUser = async (req, res) => {
-  try {
-    const { firstname, surname, email, password, confirmPassword } = req.body;
+const createUser = async (req, res) => {
+  const { firstname, surname, email, password, confirmPassword } = req.body;
 
-    if (!firstname || !surname || !email || !password || password !== confirmPassword) {
-      return res.status(400).json({ message: "Invalid data" });
-    }
+  // Validação simples de campos obrigatórios
+  if (!firstname || !surname || !email || !password || !confirmPassword) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
       firstname,
       surname,
       email,
-      password,
+      password: hashedPassword,
     });
 
-    return res.status(201).json(newUser);
+    res.status(201).json({
+      id: newUser.id,
+      firstname: newUser.firstname,
+      surname: newUser.surname,
+      email: newUser.email,
+    });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
 // Requisito 04 - Atualizar usuário
-exports.updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { firstname, surname, email } = req.body;
+
+  if (!firstname || !surname || !email) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
   try {
-    const { id } = req.params;
-    const { firstname, surname, email } = req.body;
-
-    if (!firstname || !surname || !email) {
-      return res.status(400).json({ message: "Invalid data" });
-    }
-
     const user = await User.findByPk(id);
-
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     await user.update({ firstname, surname, email });
-    return res.status(204).send();
+    res.status(204).send();
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
 // Requisito 05 - Deletar usuário
-exports.deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findByPk(id);
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     await user.destroy();
-    return res.status(204).send();
+    res.status(204).send();
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Server error' });
   }
+};
+
+module.exports = {
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
 };
