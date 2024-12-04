@@ -1,8 +1,8 @@
-import app from './app.js'; // Importe o app.js
-import dotenv from 'dotenv'; // Para gerenciar variáveis de ambiente
+import app from './app.js';
+import dotenv from 'dotenv';
 dotenv.config();
 
-const PORT = process.env.PORT || 3000; // Defina a porta do servidor
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

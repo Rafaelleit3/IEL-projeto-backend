@@ -1,8 +1,9 @@
 import express from 'express';
-import productRoutes from './routes/productRoutes.js'; // Importe as rotas de produto
-import authMiddleware from './middlewares/authMiddleware.js'; // Middleware de autenticação
-import bodyParser from 'body-parser'; // Para analisar o corpo das requisições
-import cors from 'cors'; // Para habilitar o CORS, se necessário
+import productRoutes from './routes/productRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
 
@@ -12,7 +13,9 @@ app.use(bodyParser.json()); // Para analisar o corpo das requisições como JSON
 app.use(bodyParser.urlencoded({ extended: true })); // Para analisar dados de formulários
 
 // Rotas
-app.use('/api', productRoutes); // Definindo prefixo para as rotas de produto
+app.use('/v1/product', productRoutes);
+app.use('/v1/category', categoryRoutes);
+app.use('/v1/user', userRoutes);
 
 // Rota para testar se o servidor está funcionando
 app.get('/', (req, res) => {
