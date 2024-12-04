@@ -1,19 +1,19 @@
-const express = require('express');
-const userController = require('../controllers/userController');
-const authMiddleware = require('../middlewares/authMiddleware');
+import express from 'express';
+import { getUserById, createUser, updateUser, deleteUser } from '../controllers/userController.js'
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 // Obter usuário por ID
-router.get('/v1/user/:id', userController.getUserById);
+router.get('/:id', getUserById);
 
 // Cadastro de usuário
-router.post('/v1/user', userController.createUser);
+router.post('/', createUser);
 
 // Atualizar usuário
-router.put('/v1/user/:id', authMiddleware, userController.updateUser);
+router.put('/:id', authMiddleware, updateUser);
 
 // Deletar usuário
-router.delete('/v1/user/:id', authMiddleware, userController.deleteUser);
+router.delete('/:id', authMiddleware, deleteUser);
 
-module.exports = router;
+export default router;

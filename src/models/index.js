@@ -1,13 +1,36 @@
-const sequelize = require('../config/connection');
-const Category = require('./category');
-const Product = require('./product');
-const Image = require('./image');
-const ProductOption = require('./productoption');
-const User = require('./user');
+import sequelize from '../config/connection.js';
+import Category from './category.js';
+import Product from './product.js';
+import Image from './image.js';
+import ProductOption from './productoption.js';
+import User from './user.js';
 
 
-Category.hasMany(Product, { foreignKey: 'categoryId' });
-Product.belongsTo(Category, { foreignKey: 'categoryId' });
+Category.belongsToMany(Product, {
+    through: "ProductCategory",
+    foreignKey: "categoryId",
+});
+
+Product.belongsToMany(Category, {
+    through: "ProductCategory",
+    foreignKey: "productId",
+});
+
+Product.hasMany(Image, { foreignKey: 'productId' });
+Image.belongsTo(Product, { foreignKey: 'productId' });
+
+Product.hasMany(ProductOption, { foreignKey: 'productId' });
+ProductOption.belongsTo(Product, { foreignKey: 'productId' });
+
+Category.belongsToMany(Product, {
+    through: "ProductCategory",
+    foreignKey: "categoryId",
+});
+
+Product.belongsToMany(Category, {
+    through: "ProductCategory",
+    foreignKey: "productId",
+});
 
 Product.hasMany(Image, { foreignKey: 'productId' });
 Image.belongsTo(Product, { foreignKey: 'productId' });
@@ -16,6 +39,6 @@ Product.hasMany(ProductOption, { foreignKey: 'productId' });
 ProductOption.belongsTo(Product, { foreignKey: 'productId' });
 
 
-module.exports = { sequelize, Category, Product, Image, ProductOption, User };
+export { sequelize, Category, Product, Image, ProductOption, User };
 
 

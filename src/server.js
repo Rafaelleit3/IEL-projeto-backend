@@ -1,20 +1,12 @@
-const express = require('express');
-const userRoutes = require('./routes/userRoutes');
-const connection = require('./config/connection');
+import app from './app.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const server = express();
-server.use(express.json());
+const PORT = process.env.PORT || 3000;
 
-server.use(userRoutes);
-
-server.listen(3000, async () => {
-  try {
-    await connection.authenticate();
-    console.log('Database connected');
-  } catch (error) {
-    console.error('Database connection failed', error);
-  }
-  console.log('Server is running on port 3000');
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
+
 
 

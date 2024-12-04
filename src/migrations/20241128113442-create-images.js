@@ -1,22 +1,42 @@
-'use strict';
+import { Sequelize } from 'sequelize';
 
-/** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
-  },
+export const up = async (queryInterface) => {
+  await queryInterface.createTable('Images', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
+    productId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Products',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+    content: {
+      type: Sequelize.BLOB('long'), // Usando BLOB para armazenar o conteúdo da imagem
+      allowNull: false,
+    },
+    type: {
+      type: Sequelize.STRING,  // Tipo da imagem
+      allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+    },
+  });
+};
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+export const down = async (queryInterface) => {
+  await queryInterface.dropTable('Images');
 };

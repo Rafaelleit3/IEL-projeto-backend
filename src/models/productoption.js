@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/connection"); 
+import { DataTypes } from "sequelize";
+import sequelize from "../config/connection.js"; 
 
 const ProductOption = sequelize.define("ProductOption", {
   size: {
@@ -16,5 +16,5 @@ const ProductOption = sequelize.define("ProductOption", {
   },
 });
 
-module.exports = ProductOption;
+export default ProductOption;
 
