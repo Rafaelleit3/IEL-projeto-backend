@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+package-lock.json
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.iml
+
+# Testes
+coverage/
+
+# Build/Distribuição
+dist/
+build/
+
+# Arquivos temporários ou de backup
+*.tmp
+*.bak
+*.log
