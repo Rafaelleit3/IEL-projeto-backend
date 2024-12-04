@@ -1,4 +1,4 @@
-import Category from "../models/category";
+import Category from "../models/category.js";
 
 export const searchCategories = async (req, res) => {
     try {
@@ -142,11 +142,4 @@ export const deleteCategory = async (req, res) => {
             details: error.message,
         });
     }
-};
-
-module.exports = {
-    searchCategories,
-    createCategory,
-    updateCategory,
-    deleteCategory,
 };

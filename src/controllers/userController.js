@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcryptjs';
+import User from '../models/user.js';
+import jwt from 'jsonwebtoken';
 
 // Requisito 01 - Obter informações do usuário
 const getUserById = async (req, res) => {
@@ -94,9 +94,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = {
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-};
+export { getUserById, createUser, updateUser, deleteUser };

@@ -1,8 +1,8 @@
-import Product from "../models/product";
-import Category from "../models/category";
-import Image from "../models/image";
-import Option from "../models/productoption";
-const { decodeBase64Image } = require('../utils/imageDecode');
+import Product from "../models/product.js";
+import Category from "../models/category.js";
+import Image from "../models/image.js";
+import Option from "../models/productoption.js";
+import imageDecode from '../utils/imageDecode.js';
 
 export const searchProducts = async (req, res) => {
   try {
@@ -171,13 +171,16 @@ export const createProduct = async (req, res) => {
     });
     await newProduct.setCategories(categories);
 
-    // Criação das imagens
+    // Criação das imagens do produto
     const imagePromises = images.map(async (image) => {
-      const imageBuffer = decodeBase64Image(image.content);
+      // Decodifica a imagem base64
+      const imageBuffer = imageDecode(image.content, image.fileName); // Passando o nome do arquivo
+      // Cria o registro da imagem no banco
       const imageRecord = await Image.create({
         type: image.type,
-        content: imageBuffer, // Salve a imagem em algum lugar e armazene o caminho/URL no banco
+        content: imageBuffer, // Aqui estamos usando BLOB, mas pode ser um caminho
       });
+      // Relaciona a imagem ao produto
       await newProduct.addImage(imageRecord);
     });
     

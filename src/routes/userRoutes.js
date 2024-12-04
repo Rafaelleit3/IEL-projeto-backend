@@ -1,6 +1,6 @@
-const express = require('express');
-const userController = require('../controllers/userController');
-const authMiddleware = require('../middlewares/authMiddleware');
+import express from ('express');
+import userController from ('../controllers/userController.js');
+import authMiddleware from ('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.put('/v1/user/:id', authMiddleware, userController.updateUser);
 // Deletar usuário
 router.delete('/v1/user/:id', authMiddleware, userController.deleteUser);
 
-module.exports = router;
+export default router;

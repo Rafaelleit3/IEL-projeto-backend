@@ -1,8 +1,7 @@
-"use strict";
+import { Sequelize } from "sequelize";
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("products", {
+export const up = async (queryInterface) => {
+    await queryInterface.createTable("Products", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -55,9 +54,9 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
-  },
+  };
 
-  down: async (queryInterface) => {
-    await queryInterface.dropTable("products");
-  },
+export const down = async (queryInterface) => {
+  await queryInterface.dropTable("products");
 };
+

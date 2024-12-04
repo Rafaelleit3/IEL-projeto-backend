@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const connection = require("../config/connection");
+import { DataTypes } from "sequelize";
+import connection from "../config/connection.js";
 
 const Product = connection.define(
   "Product",
@@ -59,4 +59,4 @@ Product.associate = (models) => {
   });
 };
 
-module.exports = Product;
+export default Product;
