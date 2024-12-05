@@ -1,8 +1,10 @@
+import { Model, DataTypes } from "sequelize";
 import connection from "../config/connection.js";
 import Product from "./product.js";
 
-const Category = connection.define(
-  "Category",
+class Category extends Model {}
+
+Category.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -24,9 +26,12 @@ const Category = connection.define(
     },
   },
   {
-    timestamps: true,
+    sequelize: connection,
+    modelName: "Category",
+    timestamps: true, 
   }
 );
+
 
 Category.belongsToMany(Product, {
   through: 'ProductCategory',

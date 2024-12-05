@@ -52,11 +52,10 @@ const Product = connection.define(
   }
 );
 
-Product.associate = (models) => {
-  Product.belongsTo(models.Category, {
-    foreignKey: "category_id",
-    as: "category",
-  });
-};
+Product.belongsToMany(models.Category, {
+  through: 'ProductCategory',
+  foreignKey: 'product_id',
+  as: 'categories'
+});
 
 export default Product;
