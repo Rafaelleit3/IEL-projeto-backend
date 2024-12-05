@@ -21,9 +21,12 @@ export default {
         allowNull: false,
       },
     });
+
+    await queryInterface.addIndex('productCategory', ['product_id', 'category_id']);
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('productCategory');
   }
 };
+

@@ -3,6 +3,7 @@ import Category from "../models/category.js";
 import Image from "../models/image.js";
 import Option from "../models/productoption.js";
 import imageDecode from '../utils/imageDecode.js';
+import { Op } from "sequelize";
 
 export const searchProducts = async (req, res) => {
   try {
@@ -26,11 +27,12 @@ export const searchProducts = async (req, res) => {
       ];
     }
 
-    //Query string usada para filtrar o resultado de produtos pelo ID das categorias
+    // Query string usada para filtrar o resultado de produtos pelo ID das categorias
     if (category_ids) {
       const categories = category_ids.split(',').map(id => parseInt(id, 10));
-      where['category_ids'] = { [Op.overlap]: categories };
+      where['$categories.id$'] = { [Op.in]: categories };
     }
+
 
     // Query string para filtrar o resultado de produtos por uma determinada "janela" de preços
     if (price_range) {
@@ -167,10 +169,14 @@ export const createProduct = async (req, res) => {
     });
 
     const categories = await Category.findAll({
-      where: { id: category_ids }
+      where: {
+        id: {
+          [Op.in]: category_ids,
+        },
+      },
     });
 
-    await newProduct.setCategories(categories);
+    await newProduct.addCategories(categories);
     
     // Criação das imagens do produto
     const imagePromises = images.map(async (image) => {

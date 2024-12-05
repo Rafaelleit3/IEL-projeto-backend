@@ -2,18 +2,24 @@ import Category from "./category.js";
 import Product from "./product.js";
 import Image from "./image.js";
 import ProductOption from "./productoption.js";
+import ProductCategory from "./productCategory.js";
 
-// Associações entre Category e Product
 Category.belongsToMany(Product, {
-  through: "ProductCategory",
-  foreignKey: "categoryId",
-  otherKey: "productId",
+  through: {
+    model: ProductCategory,
+  },
+  foreignKey: "category_id",
+  as: "products", // Alias para acessar os produtos associados à categoria
+  constraints: true,
 });
 
 Product.belongsToMany(Category, {
-  through: "ProductCategory",
-  foreignKey: "productId",
-  otherKey: "categoryId",
+  through: {
+    model: ProductCategory,
+  },
+  foreignKey: "product_id",
+  as: "categories", // Alias para acessar as categorias associadas ao produto
+  constraints: true,
 });
 
 // Associações entre Product e Image
