@@ -169,8 +169,9 @@ export const createProduct = async (req, res) => {
     const categories = await Category.findAll({
       where: { id: category_ids }
     });
-    await newProduct.addCategories(categories);
 
+    await newProduct.setCategories(categories);
+    
     // Criação das imagens do produto
     const imagePromises = images.map(async (image) => {
       // Decodifica a imagem base64
