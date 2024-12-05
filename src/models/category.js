@@ -1,3 +1,4 @@
+import { DataTypes } from "sequelize";
 import connection from "../config/connection.js";
 import Product from "./product.js";
 
@@ -27,13 +28,5 @@ const Category = connection.define(
     timestamps: true,
   }
 );
-
-Category.belongsToMany(Product, {
-  through: 'ProductCategory',
-  foreignKey: 'categoryId', // Chave estrangeira da tabela 'categories'
-  otherKey: 'productId',  // Chave estrangeira da tabela 'products'
-  targetKey: 'id', // Chave primária da tabela 'products'
-  as: 'products'
-});
 
 export default Category;

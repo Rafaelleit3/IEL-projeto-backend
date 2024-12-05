@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 export const up = async (queryInterface) => {
-  await queryInterface.createTable('Images', {
+  await queryInterface.createTable('images', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -38,5 +38,5 @@ export const up = async (queryInterface) => {
 };
 
 export const down = async (queryInterface) => {
-  await queryInterface.dropTable('Images');
+  await queryInterface.dropTable('images');
 };

@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
 export const up = async (queryInterface) => {
-    await queryInterface.createTable("Products", {
+    await queryInterface.createTable("products", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

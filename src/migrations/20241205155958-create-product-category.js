@@ -3,7 +3,7 @@ import { INTEGER } from 'sequelize';
 /** @type {import('sequelize-cli').Migration} */
 export default {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ProductCategory', {
+    await queryInterface.createTable('productCategory', {
       product_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -24,6 +24,6 @@ export default {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ProductCategory');
+    await queryInterface.dropTable('productCategory');
   }
 };
