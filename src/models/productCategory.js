@@ -1,42 +1,32 @@
 import { Model, DataTypes } from "sequelize";
 import connection from "../config/connection.js";
-import Product from "./product.js";
 
-class Category extends Model {}
+class ProductCategory extends Model {}
 
-Category.init(
+ProductCategory.init(
   {
-    id: {
+    product_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+      references: {
+        model: 'products',
+        key: 'id',
+      },
+      allowNull: false,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,  
-    },
-    slug: {
-      type: DataTypes.STRING,
-      allowNull: false,  
-    },
-    use_in_menu: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,  
-      defaultValue: false,  
+    category_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'categories',
+        key: 'id',
+      },
+      allowNull: false,
     },
   },
   {
     sequelize: connection,
-    modelName: "Category",
-    timestamps: true, 
+    modelName: "ProductCategory",
+    timestamps: false,
   }
 );
 
-
-Category.belongsToMany(Product, {
-  through: 'ProductCategory',
-  foreignKey: 'category_id',
-  as: 'products',
-});
-
-export default Category;
+export default ProductCategory;

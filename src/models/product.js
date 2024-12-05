@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import connection from "../config/connection.js";
+import Category from "./productCategory.js";
 
 const Product = connection.define(
   "Product",
@@ -52,9 +53,12 @@ const Product = connection.define(
   }
 );
 
-Product.belongsToMany(models.Category, {
+// Definição da associação no Model Product
+Product.belongsToMany(Category, {
   through: 'ProductCategory',
-  foreignKey: 'product_id',
+  foreignKey: 'productId', // Chave estrangeira da tabela 'products'
+  otherKey: 'categoryId',  // Chave estrangeira da tabela 'categories'
+  targetKey: 'id', // Chave primária da tabela 'categories'
   as: 'categories'
 });
 

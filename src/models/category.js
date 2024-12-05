@@ -30,8 +30,10 @@ const Category = connection.define(
 
 Category.belongsToMany(Product, {
   through: 'ProductCategory',
-  foreignKey: 'category_id',
-  as: 'products',
+  foreignKey: 'categoryId', // Chave estrangeira da tabela 'categories'
+  otherKey: 'productId',  // Chave estrangeira da tabela 'products'
+  targetKey: 'id', // Chave primária da tabela 'products'
+  as: 'products'
 });
 
 export default Category;
