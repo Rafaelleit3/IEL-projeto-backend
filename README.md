@@ -33,56 +33,56 @@ Este é o backend do projeto **IEL**, que gerencia produtos, categorias, imagens
    git clone https://github.com/seu-usuario/IEL-projeto-backend.git
    cd IEL-projeto-backend
 
-2. Instale as dependências:
+## 2. Instale as dependências:
 npm install
 
-3.Configure o arquivo .env com suas variáveis de ambiente:
-DB_USER=root
-DB_PASSWORD=sua_senha
-DB_NAME=database_development
-DB_HOST=127.0.0.1
-PORT=3000
-JWT_SECRET_KEY=sua_chave_secreta
+## 3.Configure o arquivo .env com suas variáveis de ambiente:
+- DB_USER=root
+- DB_PASSWORD=sua_senha
+- DB_NAME=database_development
+- DB_HOST=127.0.0.1
+- PORT=3000
+- JWT_SECRET_KEY=sua_chave_secreta
 
-4.Configure o banco de dados:
-npx sequelize db:create
-npx sequelize db:migrate
+## 4.Configure o banco de dados:
+- npx sequelize db:create
+- npx sequelize db:migrate
 
-5. Inicie o servidor:
-npm start
+## 5. Inicie o servidor:
+- npm start
 
-Rotas Principais
-Autenticação
-POST /login: Gera um token de autenticação.
-Produtos
-GET /products: Lista todos os produtos.
-POST /products: Cria um novo produto. (Requer token)
-PUT /products/:id Atualiza um produto. (Requer token)
-DELETE /products/:id Remove um produto. (Requer token)
-Categorias
-GET /categories: Lista todas as categorias.
-POST /categories: Cria uma nova categoria. (Requer token)
-PUT /categories/:id Atualiza uma categoria. (Requer token)
-DELETE /categories/:id Remove uma categoria. (Requer token)
+## Rotas Principais
+- Autenticação
+- POST /login: Gera um token de autenticação.
+- Produtos
+- GET /products: Lista todos os produtos.
+- POST /products: Cria um novo produto. (Requer token)
+- PUT /products/:id Atualiza um produto. (Requer token)
+- DELETE /products/:id Remove um produto. (Requer token)
+- Categorias
+- GET /categories: Lista todas as categorias.
+- POST /categories: Cria uma nova categoria. (Requer token)
+- PUT /categories/:id Atualiza uma categoria. (Requer token)
+- DELETE /categories/:id Remove uma categoria. (Requer token)
 
 ### Testando com o Postman
 1. Configure o header Authorization com o token no formato:
 Bearer <seu-token-jwt>
 2. Utilize as rotas acima para testar as funcionalidades.
 
-Estrutura do Projeto
-├── src/
-│   ├── config/          # Configurações da aplicação
-│   ├── controllers/     # Lógica de controle
-│   ├── middleware/      # Middlewares para segurança e validações
-│   ├── models/          # Definição do banco de dados (ORM)
-│   ├── routes/          # Rotas da API
-│   ├── services/        # Regras de negócio
-│   ├── app.js           # Inicialização da aplicação
-│   └── server.js        # Configuração do servidor
-├── .env                 # Variáveis de ambiente
-├── .gitignore           # Arquivos ignorados pelo Git
-└── package.json         # Dependências e scripts do projeto
+## Estrutura do Projeto
+- ├── src/
+- │   ├── config/          # Configurações da aplicação
+- │   ├── controllers/     # Lógica de controle
+- │   ├── middleware/      # Middlewares para segurança e validações
+- │   ├── models/          # Definição do banco de dados (ORM)
+- │   ├── routes/          # Rotas da API
+- │   ├── services/        # Regras de negócio
+- │   ├── app.js           # Inicialização da aplicação
+- │   └── server.js        # Configuração do servidor
+- ├── .env                 # Variáveis de ambiente
+- ├── .gitignore           # Arquivos ignorados pelo Git
+- └── package.json         # Dependências e scripts do projeto
 
 
 
