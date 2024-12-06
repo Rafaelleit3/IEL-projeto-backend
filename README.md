@@ -30,7 +30,7 @@ Este é o backend do projeto **IEL**, que gerencia produtos, categorias, imagens
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/IEL-projeto-backend.git
+   git clone https://github.com/Rafaelleit3/IEL-projeto-backend.git
    cd IEL-projeto-backend
 
 ## 2. Instale as dependências:
