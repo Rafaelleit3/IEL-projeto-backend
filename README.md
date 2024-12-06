@@ -57,13 +57,13 @@ POST /login: Gera um token de autenticação.
 Produtos
 GET /products: Lista todos os produtos.
 POST /products: Cria um novo produto. (Requer token)
-PUT /products/:id: Atualiza um produto. (Requer token)
-DELETE /products/:id: Remove um produto. (Requer token)
+PUT /products/:id Atualiza um produto. (Requer token)
+DELETE /products/:id Remove um produto. (Requer token)
 Categorias
 GET /categories: Lista todas as categorias.
 POST /categories: Cria uma nova categoria. (Requer token)
-PUT /categories/:id: Atualiza uma categoria. (Requer token)
-DELETE /categories/:id: Remove uma categoria. (Requer token)
+PUT /categories/:id Atualiza uma categoria. (Requer token)
+DELETE /categories/:id Remove uma categoria. (Requer token)
 
 ### Testando com o Postman
 1. Configure o header Authorization com o token no formato:
